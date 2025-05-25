@@ -61,7 +61,8 @@ public class AppSecurity {
                 .authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("/signin").permitAll()
                                 .requestMatchers("/signup").permitAll()
-                                .requestMatchers("/test").authenticated())
+                                .requestMatchers("/test").authenticated()
+                                .requestMatchers("/posts").authenticated())
                 .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout ->
                         logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
@@ -70,16 +71,17 @@ public class AppSecurity {
     }
 
 
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/")
-//                        .allowedOrigins("http://localhost:3000")
-//                        .allowedMethods("*")
-//                        .allowCredentials(true);
-//            }
-//        };
-//    }
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:3000")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
+            }
+        };
+    }
 }

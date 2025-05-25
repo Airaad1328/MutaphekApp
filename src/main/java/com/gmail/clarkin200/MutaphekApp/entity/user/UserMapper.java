@@ -23,7 +23,7 @@ public class UserMapper {
         newUser.setEmail(request.email());
         newUser.setPassword(passwordEncoder.encode(request.password()));
         newUser.setActive(true);
-        newUser.getRoles().add(roleRepository.findById(2L).get());
+        newUser.getRoles().add(roleRepository.findByName("ROLE_USER"));
         return newUser;
     }
 }

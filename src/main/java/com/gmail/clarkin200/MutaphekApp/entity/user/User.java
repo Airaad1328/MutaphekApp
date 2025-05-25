@@ -1,5 +1,6 @@
 package com.gmail.clarkin200.MutaphekApp.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gmail.clarkin200.MutaphekApp.entity.role.Role;
 import jakarta.persistence.*;
@@ -23,6 +24,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @JsonIgnore
     @NotNull
     @Column(name = "password")
     private String password;
@@ -40,6 +42,7 @@ public class User {
     @Column(name = "active")
     private boolean active;
 
+    @JsonIgnoreProperties
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",

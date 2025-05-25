@@ -11,7 +11,7 @@ public class UserPrincipal implements UserDetails {
 
     private final User user;
 
-    public UserPrincipal(User user){
+    public UserPrincipal(User user) {
         this.user = user;
     }
 
@@ -19,8 +19,12 @@ public class UserPrincipal implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return user.getRoles().stream()
                 .map(role ->
-                new SimpleGrantedAuthority(role.getName()))
+                        new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
+    }
+
+    public User getUser() {
+        return this.user;
     }
 
     @Override
